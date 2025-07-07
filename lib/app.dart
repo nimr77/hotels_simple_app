@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'pages/home_page.dart';
+import 'pages/home/page.dart';
 import 'styles/app_theme.dart';
 
 class MyApp extends StatelessWidget {
