@@ -1,15 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:hotel_app/logic/hotel_search/models/hotel_search_response.dart';
 import 'package:hotel_app/logic/hotel_search/models/search_query.dart';
+import 'package:hotel_app/logic/http/endpoints.dart';
 import 'package:hotel_app/models/env.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-enum HotelApiEndpoint {
-  searchHotels('/search.json');
-
-  final String path;
-  const HotelApiEndpoint(this.path);
-}
 
 class HotelSearchRepository {
   static const String _offlineHotelsKey = 'offline_hotels';

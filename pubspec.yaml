@@ -46,6 +46,7 @@ dependencies:
   swipeable_page_route: ^0.4.7
   logger: ^2.6.0
   animations: ^2.0.11
+  get_it: ^8.0.3
 
 dev_dependencies:
   flutter_test:
