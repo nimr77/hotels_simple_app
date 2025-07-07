@@ -19,6 +19,9 @@ class HotelSearchBloc extends Bloc<HotelSearchEvent, HotelSearchState> {
       emit(HotelSearchLoading());
 
       try {
+        // Save the search query for future reference
+        await repository.saveSearchQuery(event.query);
+
         // Try to get data from API
         final response = await repository.searchHotels(event.query);
 

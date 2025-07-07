@@ -1,12 +1,21 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:hotel_app/logic/hotel_search/models/hotel_search_response.dart';
 import 'package:hotel_app/logic/hotel_search/models/search_query.dart';
-import 'package:hotel_app/logic/http/endpoints.dart';
 import 'package:hotel_app/models/env.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+enum HotelApiEndpoint {
+  searchHotels('/search.json');
+
+  final String path;
+  const HotelApiEndpoint(this.path);
+}
+
 class HotelSearchRepository {
   static const String _offlineHotelsKey = 'offline_hotels';
+  static const String _lastSearchQueryKey = 'last_search_query';
   final Dio dio;
 
   HotelSearchRepository({Dio? dio})
@@ -20,6 +29,34 @@ class HotelSearchRepository {
     } catch (e) {
       print('Error clearing offline hotels: $e');
       return false;
+    }
+  }
+
+  /// Clear last search query from SharedPreferences
+  Future<bool> clearSearchQuery() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      return await prefs.remove(_lastSearchQueryKey);
+    } catch (e) {
+      print('Error clearing search query: $e');
+      return false;
+    }
+  }
+
+  /// Get last search query from SharedPreferences
+  Future<SearchQuery?> getLastSearchQuery() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final queryJson = prefs.getString(_lastSearchQueryKey);
+
+      if (queryJson != null) {
+        final queryMap = json.decode(queryJson) as Map<String, dynamic>;
+        return SearchQuery.fromMap(queryMap);
+      }
+      return null;
+    } catch (e) {
+      print('Error getting last search query: $e');
+      return null;
     }
   }
 
@@ -47,6 +84,18 @@ class HotelSearchRepository {
       return await prefs.setString(_offlineHotelsKey, hotelsJson);
     } catch (e) {
       print('Error saving hotels: $e');
+      return false;
+    }
+  }
+
+  /// Save search query to SharedPreferences
+  Future<bool> saveSearchQuery(SearchQuery query) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final queryJson = query.toJson();
+      return await prefs.setString(_lastSearchQueryKey, json.encode(queryJson));
+    } catch (e) {
+      print('Error saving search query: $e');
       return false;
     }
   }

@@ -21,6 +21,20 @@ class SearchQuery {
     required this.children,
   });
 
+  factory SearchQuery.fromMap(Map<String, dynamic> map) {
+    return SearchQuery(
+      engine: map['engine'] ?? '',
+      q: map['q'] ?? '',
+      gl: map['gl'] ?? '',
+      hl: map['hl'] ?? '',
+      currency: map['currency'] ?? '',
+      checkInDate: map['check_in_date'] ?? '',
+      checkOutDate: map['check_out_date'] ?? '',
+      adults: map['adults']?.toInt() ?? 0,
+      children: map['children']?.toInt() ?? 0,
+    );
+  }
+
   Map<String, dynamic> toJson() => {
     'engine': engine,
     'q': q,
