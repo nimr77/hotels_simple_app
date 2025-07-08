@@ -58,6 +58,35 @@ class Hotel {
     );
   }
 
+  /// Calculate attractiveness score based on multiple factors
+  double get attractivenessScore {
+    double score = 0.0;
+
+    // Rating factor (0-5 stars, weighted heavily)
+    score += (overallRating / 5.0) * 40.0;
+
+    // Reviews factor (more reviews = more credibility)
+    if (reviews > 0) {
+      score += (reviews / 1000.0).clamp(0.0, 20.0); // Max 20 points for reviews
+    }
+
+    // Hotel class factor (stars, 1-5)
+    score += (hotelClass / 5.0) * 25.0;
+
+    // Amenities factor
+    score += (amenities.length / 10.0).clamp(
+      0.0,
+      10.0,
+    ); // Max 10 points for amenities
+
+    // Free cancellation bonus
+    if (freeCancellation) {
+      score += 5.0;
+    }
+
+    return score.clamp(0.0, 100.0); // Ensure score is between 0-100
+  }
+
   bool get hasAmenities => amenities.isNotEmpty;
 
   @override
@@ -80,6 +109,12 @@ class Hotel {
   }
 
   bool get hasReviews => reviews > 0;
+
+  /// Check if hotel is highly attractive (score >= 70)
+  bool get isHighlyAttractive => attractivenessScore >= 70.0;
+
+  /// Check if hotel is moderately attractive (score >= 50)
+  bool get isModeratelyAttractive => attractivenessScore >= 50.0;
 
   double get latitude => gpsCoordinates['latitude'] ?? 0.0;
 

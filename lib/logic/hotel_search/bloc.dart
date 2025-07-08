@@ -6,6 +6,7 @@ import 'package:hotel_app/logic/hotel_search/models/search_metadata.dart';
 import 'package:hotel_app/logic/hotel_search/models/search_parameters.dart';
 import 'package:hotel_app/logic/hotel_search/models/search_query.dart';
 import 'package:hotel_app/logic/hotel_search/models/search_results_hotels.dart';
+import 'package:hotel_app/logic/hotel_search/utils/hotel_attractiveness_utils.dart';
 
 import 'repo.dart';
 
@@ -58,6 +59,78 @@ class HotelSearchBloc extends Bloc<HotelSearchEvent, HotelSearchState> {
   /// Get default search query from repository
   SearchQuery getDefaultSearchQuery() {
     return repository.getDefaultSearchQuery();
+  }
+
+  /// Get highly attractive hotels (score >= 70)
+  List<Hotel> getHighlyAttractiveHotels() {
+    if (state is! HotelSearchSuccess) return [];
+
+    final hotels = (state as HotelSearchSuccess).hotels;
+    return HotelAttractivenessUtils.getHighlyAttractiveHotelsFromObjects(
+      hotels,
+    );
+  }
+
+  /// Get hotels by price range
+  List<Hotel> getHotelsByPriceRange({int? minPrice, int? maxPrice}) {
+    if (state is! HotelSearchSuccess) return [];
+
+    final hotels = (state as HotelSearchSuccess).hotels;
+    return HotelAttractivenessUtils.getHotelsByPriceRangeFromObjects(
+      hotels,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+    );
+  }
+
+  /// Get hotels with free cancellation
+  List<Hotel> getHotelsWithFreeCancellation() {
+    if (state is! HotelSearchSuccess) return [];
+
+    final hotels = (state as HotelSearchSuccess).hotels;
+    return HotelAttractivenessUtils.getHotelsWithFreeCancellationFromObjects(
+      hotels,
+    );
+  }
+
+  /// Get luxury hotels (4-5 stars)
+  List<Hotel> getLuxuryHotels() {
+    if (state is! HotelSearchSuccess) return [];
+
+    final hotels = (state as HotelSearchSuccess).hotels;
+    return HotelAttractivenessUtils.getLuxuryHotelsFromObjects(hotels);
+  }
+
+  /// Get moderately attractive hotels (score >= 50)
+  List<Hotel> getModeratelyAttractiveHotels() {
+    if (state is! HotelSearchSuccess) return [];
+
+    final hotels = (state as HotelSearchSuccess).hotels;
+    return HotelAttractivenessUtils.getModeratelyAttractiveHotelsFromObjects(
+      hotels,
+    );
+  }
+
+  /// Get the most attractive hotels sorted by attractiveness score
+  List<Hotel> getMostAttractiveHotels({int limit = 10}) {
+    if (state is! HotelSearchSuccess) return [];
+
+    final hotels = (state as HotelSearchSuccess).hotels;
+    return HotelAttractivenessUtils.getMostAttractiveHotelsFromObjects(
+      hotels,
+      limit: limit,
+    );
+  }
+
+  /// Get top rated hotels (by overall rating)
+  List<Hotel> getTopRatedHotels({int limit = 10}) {
+    if (state is! HotelSearchSuccess) return [];
+
+    final hotels = (state as HotelSearchSuccess).hotels;
+    return HotelAttractivenessUtils.getTopRatedHotelsFromObjects(
+      hotels,
+      limit: limit,
+    );
   }
 }
 
