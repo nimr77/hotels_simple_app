@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hotel_app/pages/home/widgets/search_bar.dart';
+import 'package:hotel_app/style/constants.dart';
 import 'package:hotel_app/style/paddings.dart';
 import 'package:hotel_app/widgets/avatar/user_avatar.dart';
 
@@ -18,7 +19,10 @@ class HomePageHeaderWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children:
             [
-              Row(children: [UserAvatarWidget(), Text("Andry")]),
+              Row(
+                spacing: kSpacer * 0.5,
+                children: [UserAvatarWidget(), Text("Andry")],
+              ),
 
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),

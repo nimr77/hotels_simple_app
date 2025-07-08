@@ -10,7 +10,12 @@ class HomePage extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         HeaderSliverWidget(),
-        SliverToBoxAdapter(child: HomePageHeaderWidget()),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: HomePageHeaderWidget(),
+          ),
+        ),
       ],
     );
   }
