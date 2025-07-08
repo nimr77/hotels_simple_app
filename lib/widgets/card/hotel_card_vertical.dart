@@ -17,6 +17,7 @@ class HotelCardVertical extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => navigateToHotel(hotel),
+      borderRadius: BorderRadius.all(outterCardRadius),
       child: Container(
         decoration: CommonThemeBuilders.boxDecorationTap,
         child: Row(
