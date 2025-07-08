@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:hotel_app/logic/hotel_search/models/search_results_hotels.dart';
+import 'package:hotel_app/logic/hotel_search/models/hotel.dart';
 import 'package:hotel_app/pages/hotel/page.dart';
 import 'package:hotel_app/style/common.dart';
 import 'package:hotel_app/style/constants.dart';

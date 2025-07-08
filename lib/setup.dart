@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:hotel_app/logic/favorite/provider.dart';
 import 'package:hotel_app/logic/hotel_search/provider.dart';
 import 'package:hotel_app/logic/language/provider.dart';
 
@@ -14,9 +15,15 @@ class Setup {
     // Get the repository and bloc instances
     final hotelSearchProvider = getIt<HotelsSearchProvider>();
 
-    // Initialize language bloc
+    // Initialize language
     final languageProvider = getIt<LanguageProvider>();
-    await Future.wait([languageProvider.init(), hotelSearchProvider.init()]);
+
+    final favoriteProvider = getIt<FavoriteProvider>();
+    await Future.wait([
+      languageProvider.init(),
+      hotelSearchProvider.init(),
+      favoriteProvider.init(),
+    ]);
 
     hotelSearchProvider.loadHotels();
   }
@@ -29,5 +36,7 @@ class Setup {
 
     // Register LanguageBloc as a singleton
     getIt.registerLazySingleton<LanguageProvider>(() => LanguageProvider());
+
+    getIt.registerLazySingleton(() => FavoriteProvider());
   }
 }

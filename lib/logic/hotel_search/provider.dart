@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:hotel_app/generated/l10n.dart';
+import 'package:hotel_app/logic/hotel_search/models/hotel.dart';
 import 'package:hotel_app/logic/hotel_search/models/search_query.dart';
-import 'package:hotel_app/logic/hotel_search/models/search_results_hotels.dart';
 import 'package:hotel_app/logic/hotel_search/repo.dart';
 import 'package:hotel_app/logic/hotel_search/utils/hotel_attractiveness_utils.dart';
 import 'package:hotel_app/logic/logger/loger.dart';

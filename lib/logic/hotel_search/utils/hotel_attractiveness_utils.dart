@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:hotel_app/logic/hotel_search/models/search_results_hotels.dart';
+import 'package:hotel_app/logic/hotel_search/models/hotel.dart';
 
 /// Global utility class for hotel attractiveness calculations
 class HotelAttractivenessUtils {

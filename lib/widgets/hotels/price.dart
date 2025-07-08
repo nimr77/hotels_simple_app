@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_app/logic/hotel_search/models/search_results_hotels.dart';
+import 'package:hotel_app/logic/hotel_search/models/hotel.dart';
 
 class HotelPriceCardViewWidget extends StatelessWidget {
   final Hotel hotel;

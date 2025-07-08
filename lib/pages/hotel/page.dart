@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hotel_app/logic/hotel_search/models/search_results_hotels.dart';
+import 'package:hotel_app/logic/hotel_search/models/hotel.dart';
 import 'package:hotel_app/routes/router.dart';
 import 'package:hotel_app/routes/routes.dart';
 

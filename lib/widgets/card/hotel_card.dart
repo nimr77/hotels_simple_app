@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:hotel_app/logic/hotel_search/models/search_results_hotels.dart';
+import 'package:hotel_app/logic/hotel_search/models/hotel.dart';
 import 'package:hotel_app/pages/hotel/page.dart';
 import 'package:hotel_app/style/common.dart';
 import 'package:hotel_app/style/constants.dart';
 import 'package:hotel_app/style/paddings.dart';
 import 'package:hotel_app/widgets/elements/stars.dart';
+import 'package:hotel_app/widgets/hotels/hotel_favoirte.dart';
 import 'package:hotel_app/widgets/hotels/price.dart';
 
 class HotelCard extends StatelessWidget {
@@ -26,23 +27,35 @@ class HotelCard extends StatelessWidget {
           children: [
             SizedBox(
               height: 150,
-              child: Stack(
-                children: [
-                  Hero(
-                    tag: hotel.thumbnail,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.vertical(
-                        top: outterCardRadius,
-                      ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.vertical(top: outterCardRadius),
 
-                      child: CachedNetworkImage(
-                        imageUrl: hotel.thumbnail,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
+                child: Stack(
+                  children: [
+                    Hero(
+                      tag: hotel.thumbnail,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.vertical(
+                          top: outterCardRadius,
+                        ),
+
+                        child: CachedNetworkImage(
+                          imageUrl: hotel.thumbnail,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    Align(
+                      alignment: AlignmentDirectional.topEnd.add(
+                        const Alignment(0.05, -0.1),
+                      ),
+                      child: HotelFavoirteButton(
+                        hotel: hotel,
+                      ).animate(effects: [FadeEffect(), ScaleEffect()]),
+                    ),
+                  ],
+                ),
               ),
             ),
 

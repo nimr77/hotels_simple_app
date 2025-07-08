@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'brand.dart';
+import 'hotel.dart';
 import 'search_information.dart';
 import 'search_metadata.dart';
 import 'search_parameters.dart';
-import 'search_results_hotels.dart';
 
 class HotelSearchResponse {
   final SearchMetadata searchMetadata;
