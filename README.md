@@ -6,7 +6,7 @@ A modern Flutter hotel search app using SerpAPI, BLoC/Provider architecture, and
 
 ### 1. Clone the repository
 ```sh
-git clone <your-repo-url>
+git clone git@github.com:nimr77/hotels_simple_app.git
 cd test_hotel_app
 ```
 
