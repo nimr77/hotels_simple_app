@@ -50,6 +50,7 @@ dependencies:
   toastification: ^3.0.3
   devicelocale: ^0.8.1
   gaimon: ^1.4.1
+  glass: ^2.0.0+2
 
 dev_dependencies:
   flutter_test:
