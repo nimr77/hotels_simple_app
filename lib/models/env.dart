@@ -5,6 +5,6 @@ class Env {
   static String get baseUrl => 'https://serpapi.com';
 
   static Future<void> load() async {
-    await dotenv.load();
+    await dotenv.load(fileName: 'assets/env/.env');
   }
 }
