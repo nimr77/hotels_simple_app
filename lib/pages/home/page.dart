@@ -184,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                               itemBuilder: (_, index) => Padding(
                                 padding: const EdgeInsets.only(bottom: 16),
                                 child: SizedBox(
-                                  height: 120,
+                                  height: 125,
                                   child: HotelCardVertical(
                                     hotel: listOfHotels[index],
                                   ),

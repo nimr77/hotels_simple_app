@@ -91,7 +91,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     itemBuilder: (_, index) => Padding(
                       padding: const EdgeInsets.only(bottom: 16),
                       child: SizedBox(
-                        height: 120,
+                        height: 125,
                         child: HotelCardVertical(hotel: list[index]),
                       ),
                     ),

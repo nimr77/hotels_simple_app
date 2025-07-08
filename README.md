@@ -147,3 +147,16 @@ In this app, most data (such as hotel search results, favorites, and language se
 `Provider` is only used in cases where a provider's lifecycle should be tied to a specific page or subtree (for example, if you want to dispose of a provider when leaving a page). Since most of our state is global and should persist across navigation, we rarely need to use `Provider` for scoping or disposal.
 
 This keeps the app simple and avoids unnecessary widget rebuilds or context passing, while still allowing for local state management with Provider when needed.
+
+## Features
+
+- **Smooth Animations**: The app uses Flutter Animate for beautiful, fluid transitions and effects throughout the UI.
+- **Hero Animation**: Seamless shared element transitions between screens (e.g., hotel cards and avatars).
+- **Glassmorphism**: Modern glass-like UI elements for a premium look.
+- **GoRouter Navigation**: Robust navigation using GoRouter, supporting deep linking and flexible routing.
+- **Adaptive Theme**: Automatically adapts to dark and light mode based on system settings.
+- **Multi-language Support**: Easily switch between supported languages in the profile page.
+- **Caching**: Offline storage of hotel search results and queries for fast, resilient access.
+- **Error Handling**: User-friendly error messages and fallback UI for network or API issues.
+- **Data Refresh**: Pull-to-refresh and automatic retry mechanisms to keep data up to date, even after errors.
+- **Haptic Feedback**: Subtle haptic responses (using Gaimon) for enhanced user interaction.
