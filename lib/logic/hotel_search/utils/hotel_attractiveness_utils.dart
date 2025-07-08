@@ -33,8 +33,8 @@ class HotelAttractivenessUtils {
     int? maxClass,
   }) {
     return hotels.where((hotel) {
-      if (minClass != null && hotel.hotelClass < minClass) return false;
-      if (maxClass != null && hotel.hotelClass > maxClass) return false;
+      if (minClass != null && hotel.hotel_class < minClass) return false;
+      if (maxClass != null && hotel.hotel_class > maxClass) return false;
       return true;
     }).toList();
   }
@@ -163,7 +163,7 @@ class HotelAttractivenessUtils {
 
   /// Get luxury hotels from Hotel objects
   static List<Hotel> getLuxuryHotelsFromObjects(List<Hotel> hotels) {
-    return hotels.where((hotel) => hotel.hotelClass >= 4).toList();
+    return hotels.where((hotel) => hotel.hotel_class >= 4).toList();
   }
 
   /// Background computation function for getting luxury hotels
@@ -359,7 +359,7 @@ class HotelAttractivenessUtils {
   ) {
     final hotels = mapsToHotels(hotelMaps);
     final luxuryHotels = hotels
-        .where((hotel) => hotel.hotelClass >= 4)
+        .where((hotel) => hotel.hotel_class >= 4)
         .toList();
     return hotelsToMaps(luxuryHotels);
   }

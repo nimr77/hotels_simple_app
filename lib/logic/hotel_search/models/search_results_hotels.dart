@@ -10,7 +10,7 @@ class Hotel {
   final String property_token;
   final String serpapi_property_details_link;
   final Map<String, double> gps_coordinates;
-  final int hotelClass;
+  final int hotel_class;
   final String thumbnail;
   final double overall_rating;
   final int reviews;
@@ -27,7 +27,7 @@ class Hotel {
     required this.property_token,
     required this.serpapi_property_details_link,
     required this.gps_coordinates,
-    required this.hotelClass,
+    required this.hotel_class,
     required this.thumbnail,
     required this.overall_rating,
     required this.reviews,
@@ -48,7 +48,7 @@ class Hotel {
       property_token: map['property_token'] ?? '',
       serpapi_property_details_link: map['serpapi_property_details_link'] ?? '',
       gps_coordinates: Map<String, double>.from(map['gps_coordinates']),
-      hotelClass: map['hotelClass']?.toInt() ?? 0,
+      hotel_class: map['hotel_class']?.toInt() ?? 0,
       thumbnail: map['thumbnail'] ?? '',
       overall_rating: map['overall_rating']?.toDouble() ?? 0.0,
       reviews: map['reviews']?.toInt() ?? 0,
@@ -72,7 +72,7 @@ class Hotel {
     }
 
     // Hotel class factor (stars, 1-5)
-    score += (hotelClass / 5.0) * 25.0;
+    score += (hotel_class / 5.0) * 25.0;
 
     // Amenities factor
     score += (amenities.length / 10.0).clamp(
@@ -99,7 +99,7 @@ class Hotel {
         property_token.hashCode ^
         serpapi_property_details_link.hashCode ^
         gps_coordinates.hashCode ^
-        hotelClass.hashCode ^
+        hotel_class.hashCode ^
         thumbnail.hashCode ^
         overall_rating.hashCode ^
         reviews.hashCode ^
@@ -133,7 +133,7 @@ class Hotel {
         other.property_token == property_token &&
         other.serpapi_property_details_link == serpapi_property_details_link &&
         mapEquals(other.gps_coordinates, gps_coordinates) &&
-        other.hotelClass == hotelClass &&
+        other.hotel_class == hotel_class &&
         other.thumbnail == thumbnail &&
         other.overall_rating == overall_rating &&
         other.reviews == reviews &&
@@ -151,7 +151,7 @@ class Hotel {
     String? property_token,
     String? serpapi_property_details_link,
     Map<String, double>? gps_coordinates,
-    int? hotelClass,
+    int? hotel_class,
     String? thumbnail,
     double? overall_rating,
     int? reviews,
@@ -169,7 +169,7 @@ class Hotel {
       serpapi_property_details_link:
           serpapi_property_details_link ?? this.serpapi_property_details_link,
       gps_coordinates: gps_coordinates ?? this.gps_coordinates,
-      hotelClass: hotelClass ?? this.hotelClass,
+      hotel_class: hotel_class ?? this.hotel_class,
       thumbnail: thumbnail ?? this.thumbnail,
       overall_rating: overall_rating ?? this.overall_rating,
       reviews: reviews ?? this.reviews,
@@ -194,7 +194,7 @@ class Hotel {
       'serpapi_property_details_link': serpapi_property_details_link,
     });
     result.addAll({'gps_coordinates': gps_coordinates});
-    result.addAll({'hotelClass': hotelClass});
+    result.addAll({'hotel_class': hotel_class});
     result.addAll({'thumbnail': thumbnail});
     result.addAll({'overall_rating': overall_rating});
     result.addAll({'reviews': reviews});
@@ -208,6 +208,6 @@ class Hotel {
 
   @override
   String toString() {
-    return 'Hotel(name: $name, source: $source, sourceIcon: $sourceIcon, link: $link, property_token: $property_token, serpapi_property_details_link: $serpapi_property_details_link, gps_coordinates: $gps_coordinates, hotelClass: $hotelClass, thumbnail: $thumbnail, overall_rating: $overall_rating, reviews: $reviews, price: $price, extracted_price: $extracted_price, amenities: $amenities, free_cancellation: $free_cancellation)';
+    return 'Hotel(name: $name, source: $source, sourceIcon: $sourceIcon, link: $link, property_token: $property_token, serpapi_property_details_link: $serpapi_property_details_link, gps_coordinates: $gps_coordinates, hotel_class: $hotel_class, thumbnail: $thumbnail, overall_rating: $overall_rating, reviews: $reviews, price: $price, extracted_price: $extracted_price, amenities: $amenities, free_cancellation: $free_cancellation)';
   }
 }

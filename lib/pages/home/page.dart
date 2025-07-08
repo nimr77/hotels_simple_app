@@ -56,7 +56,7 @@ class HomePageContent extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(top: kSpacer * 0.5),
               child: SizedBox(
-                height: 250,
+                height: 265,
                 child: BlocBuilder<HotelSearchBloc, HotelSearchState>(
                   bloc: getIt<HotelSearchBloc>(),
                   buildWhen: (prev, curr) =>
@@ -66,9 +66,7 @@ class HomePageContent extends StatelessWidget {
                       curr is HotelSearchSuccess,
                   builder: (context, state) {
                     final bloc = getIt<HotelSearchBloc>();
-                    if (bloc.isBackgroundProcessing &&
-                        bloc.getBackgroundProcessingType() ==
-                            BackgroundProcessingType.mostAttractive) {
+                    if (bloc.isBackgroundProcessing || bloc.isLoading) {
                       // Show shimmer loading
                       return ListView.separated(
                         scrollDirection: Axis.horizontal,
@@ -85,6 +83,10 @@ class HomePageContent extends StatelessWidget {
                               ),
                             ).animate(
                               effects: [
+                                FadeEffect(
+                                  duration: 1.seconds,
+                                  curve: Curves.easeInOut,
+                                ),
                                 ShimmerEffect(
                                   duration: 3.seconds,
                                   color: Colors.grey,
@@ -107,7 +109,7 @@ class HomePageContent extends StatelessWidget {
                         itemCount: hotels.length,
                         separatorBuilder: (_, __) => const SizedBox(width: 12),
                         itemBuilder: (_, index) => SizedBox(
-                          width: 160,
+                          width: 280,
                           child: HotelCard(hotel: hotels[index]),
                         ),
                       ).animate(effects: [FadeEffect(duration: 300.ms)]);
