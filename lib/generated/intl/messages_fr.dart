@@ -41,6 +41,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Aucun hôtel trouvé",
     ),
     "profile": MessageLookupByLibrary.simpleMessage("Profil"),
+    "pullToRefresh": MessageLookupByLibrary.simpleMessage(
+      "Tirer pour actualiser",
+    ),
     "recomandedHotelsTitle": MessageLookupByLibrary.simpleMessage(
       "Hôtels recommandés",
     ),

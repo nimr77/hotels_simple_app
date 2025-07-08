@@ -10,5 +10,6 @@
   "home": "Home",
   "errorLoadingData": "Error loading data",
   "searchInYourFavorites": "Search in your favorites",
-  "clickOnTheHeartToAddToFavorites": "Click on the heart to add to favorites"
+  "clickOnTheHeartToAddToFavorites": "Click on the heart to add to favorites",
+  "pullToRefresh": "Pull to refresh"
 }

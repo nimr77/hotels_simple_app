@@ -153,6 +153,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Pull to refresh`
+  String get pullToRefresh {
+    return Intl.message(
+      'Pull to refresh',
+      name: 'pullToRefresh',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

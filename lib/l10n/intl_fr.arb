@@ -10,5 +10,6 @@
   "home": "Accueil",
   "errorLoadingData": "Erreur lors du chargement des données",
   "searchInYourFavorites": "Rechercher dans vos favoris",
-  "clickOnTheHeartToAddToFavorites": "Cliquez sur le cœur pour ajouter aux favoris"
+  "clickOnTheHeartToAddToFavorites": "Cliquez sur le cœur pour ajouter aux favoris",
+  "pullToRefresh": "Tirer pour actualiser"
 }
