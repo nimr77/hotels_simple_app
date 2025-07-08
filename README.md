@@ -16,7 +16,7 @@ flutter pub get
 ```
 
 ### 3. Set up the .env file
-Create a `.env` file in the root directory with your SerpAPI key:
+Create a `.env` file at `assets/env/.env` (not just the root) with your SerpAPI key:
 
 ```
 SERPAPI_KEY=your_serpapi_key_here
