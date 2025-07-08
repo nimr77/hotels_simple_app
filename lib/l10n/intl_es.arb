@@ -1,0 +1,14 @@
+{
+  "appName": "Hotel App",
+  "searchBarTitle": "Buscar hoteles del mundo",
+  "recomandedHotelsTitle": "Hoteles recomendados",
+  "hotelAddedToFavorites": "Hotel añadido a favoritos",
+  "hotelRemovedFromFavorites": "Hotel eliminado de favoritos",
+  "notHotelsAreFound": "No se encontraron hoteles",
+  "favorites": "Favoritos",
+  "profile": "Perfil",
+  "home": "Inicio",
+  "errorLoadingData": "Error al cargar datos",
+  "searchInYourFavorites": "Buscar en tus favoritos",
+  "clickOnTheHeartToAddToFavorites": "Haz clic en el corazón para añadir a favoritos"
+}
