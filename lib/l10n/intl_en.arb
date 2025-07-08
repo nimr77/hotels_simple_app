@@ -3,5 +3,8 @@
   "recomandedHotelsTitle": "Recommended hotels",
   "hotelAddedToFavorites": "Hotel added to favorites",
   "hotelRemovedFromFavorites": "Hotel removed from favorites",
-  "notHotelsAreFound": "No hotels are found"
+  "notHotelsAreFound": "No hotels are found",
+  "favorites": "Favorites",
+  "profile": "Profile",
+  "home": "Home"
 }

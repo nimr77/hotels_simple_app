@@ -45,7 +45,7 @@ class NavigationContainer extends StatelessWidget {
                   padding ??
                   const EdgeInsets.all(8.0).add(
                     EdgeInsets.only(
-                      bottom: MediaQuery.of(context).padding.bottom * 0.7,
+                      bottom: MediaQuery.of(context).padding.bottom * 0.5,
                     ),
                   ),
               child: child,

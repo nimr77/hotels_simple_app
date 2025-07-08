@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
+    "home": MessageLookupByLibrary.simpleMessage("Home"),
     "hotelAddedToFavorites": MessageLookupByLibrary.simpleMessage(
       "Hotel added to favorites",
     ),
@@ -31,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "notHotelsAreFound": MessageLookupByLibrary.simpleMessage(
       "No hotels are found",
     ),
+    "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "recomandedHotelsTitle": MessageLookupByLibrary.simpleMessage(
       "Recommended hotels",
     ),

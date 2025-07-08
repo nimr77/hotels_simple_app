@@ -1,12 +1,17 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hotel_app/pages/favorites/page.dart';
 import 'package:hotel_app/pages/home/page.dart';
 import 'package:hotel_app/pages/hotel/page.dart';
+import 'package:hotel_app/pages/profile/page.dart';
 
 /// Enum representing different routes in the application
 enum Routes {
   /// Main home screen and its the search screen
   home,
+
+  favorites,
+  profile,
 
   /// User profile screen
   hotel;
@@ -24,13 +29,17 @@ enum Routes {
   /// Map of routes to their corresponding builder functions.
   static Map<Routes, Function(BuildContext, GoRouterState)> get _builder => {
     Routes.home: (context, state) => const HomePage(),
-    Routes.hotel: (context, state) => const HotelPage(),
+    Routes.hotel: (context, state) => HotelPage(state: state),
+    Routes.favorites: (context, state) => const FavoritesPage(),
+    Routes.profile: (context, state) => const ProfilePage(),
   };
 
   /// Map of route names to their corresponding paths.
   static Map<Routes, String> get _routes => {
     Routes.home: '/',
-    Routes.hotel: '/profile',
+    Routes.favorites: '/favorites',
+    Routes.profile: '/profile',
+    Routes.hotel: '/hotel',
   };
 
   /// Checks if the route requires authentication.
