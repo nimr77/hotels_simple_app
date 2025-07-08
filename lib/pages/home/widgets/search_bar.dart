@@ -78,7 +78,7 @@ class HomePageSearchBarWidget extends StatelessWidget {
           ].animate(
             interval: const Duration(milliseconds: 100),
             effects: [
-              const SlideEffect(begin: Offset(-0.2, 0), curve: Curves.easeIn),
+              const SlideEffect(begin: Offset(0, -0.1), curve: Curves.easeIn),
               const FadeEffect(),
             ],
           ),

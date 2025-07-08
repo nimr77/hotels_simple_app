@@ -133,6 +133,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Search in your favorites`
+  String get searchInYourFavorites {
+    return Intl.message(
+      'Search in your favorites',
+      name: 'searchInYourFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Click on the heart to add to favorites`
+  String get clickOnTheHeartToAddToFavorites {
+    return Intl.message(
+      'Click on the heart to add to favorites',
+      name: 'clickOnTheHeartToAddToFavorites',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
