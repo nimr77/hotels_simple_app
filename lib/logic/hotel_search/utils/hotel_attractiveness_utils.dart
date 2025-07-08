@@ -46,8 +46,8 @@ class HotelAttractivenessUtils {
     int? maxPrice,
   }) {
     return hotels.where((hotel) {
-      if (minPrice != null && hotel.extractedPrice < minPrice) return false;
-      if (maxPrice != null && hotel.extractedPrice > maxPrice) return false;
+      if (minPrice != null && hotel.extracted_price < minPrice) return false;
+      if (maxPrice != null && hotel.extracted_price > maxPrice) return false;
       return true;
     }).toList();
   }
@@ -72,8 +72,8 @@ class HotelAttractivenessUtils {
     double? maxRating,
   }) {
     return hotels.where((hotel) {
-      if (minRating != null && hotel.overallRating < minRating) return false;
-      if (maxRating != null && hotel.overallRating > maxRating) return false;
+      if (minRating != null && hotel.overall_rating < minRating) return false;
+      if (maxRating != null && hotel.overall_rating > maxRating) return false;
       return true;
     }).toList();
   }
@@ -84,7 +84,7 @@ class HotelAttractivenessUtils {
     int limit = 10,
   }) {
     final sortedHotels = List<Hotel>.from(hotels)
-      ..sort((a, b) => b.extractedPrice.compareTo(a.extractedPrice));
+      ..sort((a, b) => b.extracted_price.compareTo(a.extracted_price));
     return sortedHotels.take(limit).toList();
   }
 
@@ -94,7 +94,7 @@ class HotelAttractivenessUtils {
     int limit = 10,
   }) {
     final sortedHotels = List<Hotel>.from(hotels)
-      ..sort((a, b) => a.extractedPrice.compareTo(b.extractedPrice));
+      ..sort((a, b) => a.extracted_price.compareTo(b.extracted_price));
     return sortedHotels.take(limit).toList();
   }
 
@@ -124,7 +124,7 @@ class HotelAttractivenessUtils {
   static List<Hotel> getHotelsWithFreeCancellationFromObjects(
     List<Hotel> hotels,
   ) {
-    return hotels.where((hotel) => hotel.freeCancellation).toList();
+    return hotels.where((hotel) => hotel.free_cancellation).toList();
   }
 
   /// Background computation function for getting hotels with free cancellation
@@ -216,7 +216,7 @@ class HotelAttractivenessUtils {
     int limit = 10,
   }) {
     final sortedHotels = List<Hotel>.from(hotels)
-      ..sort((a, b) => b.overallRating.compareTo(a.overallRating));
+      ..sort((a, b) => b.overall_rating.compareTo(a.overall_rating));
     return sortedHotels.take(limit).toList();
   }
 
@@ -310,8 +310,8 @@ class HotelAttractivenessUtils {
 
     final hotels = mapsToHotels(hotelMaps);
     final filteredHotels = hotels.where((hotel) {
-      if (minPrice != null && hotel.extractedPrice < minPrice) return false;
-      if (maxPrice != null && hotel.extractedPrice > maxPrice) return false;
+      if (minPrice != null && hotel.extracted_price < minPrice) return false;
+      if (maxPrice != null && hotel.extracted_price > maxPrice) return false;
       return true;
     }).toList();
 
@@ -337,7 +337,7 @@ class HotelAttractivenessUtils {
   ) {
     final hotels = mapsToHotels(hotelMaps);
     final freeCancellationHotels = hotels
-        .where((hotel) => hotel.freeCancellation)
+        .where((hotel) => hotel.free_cancellation)
         .toList();
     return hotelsToMaps(freeCancellationHotels);
   }
@@ -399,7 +399,7 @@ class HotelAttractivenessUtils {
 
     final hotels = mapsToHotels(hotelMaps);
     final sortedHotels = List<Hotel>.from(hotels)
-      ..sort((a, b) => b.overallRating.compareTo(a.overallRating));
+      ..sort((a, b) => b.overall_rating.compareTo(a.overall_rating));
 
     final topRatedHotels = sortedHotels.take(limit).toList();
     return hotelsToMaps(topRatedHotels);

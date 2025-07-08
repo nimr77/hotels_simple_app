@@ -215,7 +215,7 @@ class CommonThemeBuilders {
         base.titleLarge!.copyWith(
           fontWeight: FontWeight.bold,
           color: fontcolor,
-          fontSize: isTablet ? 18 : 22,
+          fontSize: isTablet ? 18 : 20,
         ),
       ), //f-size 20
       labelLarge: getTextStyle(

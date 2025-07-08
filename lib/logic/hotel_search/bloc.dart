@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_app/logic/hotel_search/models/brand.dart';
 import 'package:hotel_app/logic/hotel_search/models/hotel_search_response.dart';
@@ -7,6 +8,7 @@ import 'package:hotel_app/logic/hotel_search/models/search_parameters.dart';
 import 'package:hotel_app/logic/hotel_search/models/search_query.dart';
 import 'package:hotel_app/logic/hotel_search/models/search_results_hotels.dart';
 import 'package:hotel_app/logic/hotel_search/utils/hotel_attractiveness_utils.dart';
+import 'package:hotel_app/logic/logger/loger.dart';
 
 import 'repo.dart';
 
@@ -117,41 +119,7 @@ class HotelSearchBloc extends Bloc<HotelSearchEvent, HotelSearchState> {
 
   HotelSearchBloc() : super(HotelSearchInitial()) {
     on<HotelSearchRequested>((event, emit) async {
-      _isLoading = true;
-      emit(HotelSearchLoading());
-
-      try {
-        // Save the search query for future reference
-        await repository.saveSearchQuery(event.query);
-
-        // Try to get data from API
-        final response = await repository.searchHotels(event.query);
-
-        // Save successful response to offline storage
-        await repository.saveHotels(response);
-
-        _isLoading = false;
-        // Emit success with online data
-        emit(HotelSearchSuccess(response, isOfflineData: false));
-      } catch (e) {
-        // If API fails, try to get offline data
-        try {
-          final offlineResponse = await repository.getOfflineHotels();
-          if (offlineResponse != null) {
-            _isLoading = false;
-            // Emit success with offline data
-            emit(HotelSearchSuccess(offlineResponse, isOfflineData: true));
-          } else {
-            _isLoading = false;
-            // No offline data available, emit error
-            emit(HotelSearchError(e.toString()));
-          }
-        } catch (offlineError) {
-          _isLoading = false;
-          // Both API and offline failed, emit original error
-          emit(HotelSearchError(e.toString()));
-        }
-      }
+      await fetchHotelsWithQuery(event.query, emit);
     });
 
     // Background processing events
@@ -476,6 +444,50 @@ class HotelSearchBloc extends Bloc<HotelSearchEvent, HotelSearchState> {
   bool get isBackgroundSuccess => state is HotelSearchBackgroundSuccess;
 
   bool get isLoading => _isLoading;
+
+  Future<void> fetchHotelsWithQuery(
+    SearchQuery query,
+    Emitter<HotelSearchState> emit,
+  ) async {
+    _isLoading = true;
+    emit(HotelSearchLoading());
+
+    try {
+      // Save the search query for future reference
+      await repository.saveSearchQuery(query);
+
+      // Try to get data from API
+      final response = await repository.searchHotels(query);
+
+      // Save successful response to offline storage
+      await repository.saveHotels(response);
+
+      _isLoading = false;
+      // Emit success with online data
+      emit(HotelSearchSuccess(response, isOfflineData: false));
+    } catch (e) {
+      // If API fails, try to get offline data
+      try {
+        if (kDebugMode) {
+          logError('Error fetching data: $e', error: e);
+        }
+        final offlineResponse = await repository.getOfflineHotels();
+        if (offlineResponse != null) {
+          _isLoading = false;
+          // Emit success with offline data
+          emit(HotelSearchSuccess(offlineResponse, isOfflineData: true));
+        } else {
+          _isLoading = false;
+          // No offline data available, emit error
+          emit(HotelSearchError(e.toString()));
+        }
+      } catch (offlineError) {
+        _isLoading = false;
+        // Both API and offline failed, emit original error
+        emit(HotelSearchError(e.toString()));
+      }
+    }
+  }
 
   /// Get background processing type
   BackgroundProcessingType? getBackgroundProcessingType() {

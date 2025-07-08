@@ -47,7 +47,6 @@ class Setup {
       searchQuery = repository.getDefaultSearchQuery();
     }
 
-    // Trigger initial data fetch with the search query
     hotelSearchBloc.add(HotelSearchRequested(searchQuery));
   }
 }

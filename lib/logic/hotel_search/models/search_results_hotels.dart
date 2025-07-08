@@ -7,33 +7,34 @@ class Hotel {
   final String source;
   final String sourceIcon;
   final String link;
-  final String propertyToken;
-  final String serpapiPropertyDetailsLink;
-  final Map<String, double> gpsCoordinates;
+  final String property_token;
+  final String serpapi_property_details_link;
+  final Map<String, double> gps_coordinates;
   final int hotelClass;
   final String thumbnail;
-  final double overallRating;
+  final double overall_rating;
   final int reviews;
   final String price;
-  final int extractedPrice;
+  final int extracted_price;
   final List<String> amenities;
-  final bool freeCancellation;
+  final bool free_cancellation;
+
   Hotel({
     required this.name,
     required this.source,
     required this.sourceIcon,
     required this.link,
-    required this.propertyToken,
-    required this.serpapiPropertyDetailsLink,
-    required this.gpsCoordinates,
+    required this.property_token,
+    required this.serpapi_property_details_link,
+    required this.gps_coordinates,
     required this.hotelClass,
     required this.thumbnail,
-    required this.overallRating,
+    required this.overall_rating,
     required this.reviews,
     required this.price,
-    required this.extractedPrice,
+    required this.extracted_price,
     required this.amenities,
-    required this.freeCancellation,
+    required this.free_cancellation,
   });
 
   factory Hotel.fromJson(String source) => Hotel.fromMap(json.decode(source));
@@ -44,17 +45,17 @@ class Hotel {
       source: map['source'] ?? '',
       sourceIcon: map['sourceIcon'] ?? '',
       link: map['link'] ?? '',
-      propertyToken: map['propertyToken'] ?? '',
-      serpapiPropertyDetailsLink: map['serpapiPropertyDetailsLink'] ?? '',
-      gpsCoordinates: Map<String, double>.from(map['gpsCoordinates']),
+      property_token: map['property_token'] ?? '',
+      serpapi_property_details_link: map['serpapi_property_details_link'] ?? '',
+      gps_coordinates: Map<String, double>.from(map['gps_coordinates']),
       hotelClass: map['hotelClass']?.toInt() ?? 0,
       thumbnail: map['thumbnail'] ?? '',
-      overallRating: map['overallRating']?.toDouble() ?? 0.0,
+      overall_rating: map['overall_rating']?.toDouble() ?? 0.0,
       reviews: map['reviews']?.toInt() ?? 0,
       price: map['price'] ?? '',
-      extractedPrice: map['extractedPrice']?.toInt() ?? 0,
+      extracted_price: map['extracted_price']?.toInt() ?? 0,
       amenities: List<String>.from(map['amenities']),
-      freeCancellation: map['freeCancellation'] ?? false,
+      free_cancellation: map['free_cancellation'] ?? false,
     );
   }
 
@@ -63,7 +64,7 @@ class Hotel {
     double score = 0.0;
 
     // Rating factor (0-5 stars, weighted heavily)
-    score += (overallRating / 5.0) * 40.0;
+    score += (overall_rating / 5.0) * 40.0;
 
     // Reviews factor (more reviews = more credibility)
     if (reviews > 0) {
@@ -80,7 +81,7 @@ class Hotel {
     ); // Max 10 points for amenities
 
     // Free cancellation bonus
-    if (freeCancellation) {
+    if (free_cancellation) {
       score += 5.0;
     }
 
@@ -95,17 +96,17 @@ class Hotel {
         source.hashCode ^
         sourceIcon.hashCode ^
         link.hashCode ^
-        propertyToken.hashCode ^
-        serpapiPropertyDetailsLink.hashCode ^
-        gpsCoordinates.hashCode ^
+        property_token.hashCode ^
+        serpapi_property_details_link.hashCode ^
+        gps_coordinates.hashCode ^
         hotelClass.hashCode ^
         thumbnail.hashCode ^
-        overallRating.hashCode ^
+        overall_rating.hashCode ^
         reviews.hashCode ^
         price.hashCode ^
-        extractedPrice.hashCode ^
+        extracted_price.hashCode ^
         amenities.hashCode ^
-        freeCancellation.hashCode;
+        free_cancellation.hashCode;
   }
 
   bool get hasReviews => reviews > 0;
@@ -116,9 +117,9 @@ class Hotel {
   /// Check if hotel is moderately attractive (score >= 50)
   bool get isModeratelyAttractive => attractivenessScore >= 50.0;
 
-  double get latitude => gpsCoordinates['latitude'] ?? 0.0;
+  double get latitude => gps_coordinates['latitude'] ?? 0.0;
 
-  double get longitude => gpsCoordinates['longitude'] ?? 0.0;
+  double get longitude => gps_coordinates['longitude'] ?? 0.0;
 
   @override
   bool operator ==(Object other) {
@@ -129,17 +130,17 @@ class Hotel {
         other.source == source &&
         other.sourceIcon == sourceIcon &&
         other.link == link &&
-        other.propertyToken == propertyToken &&
-        other.serpapiPropertyDetailsLink == serpapiPropertyDetailsLink &&
-        mapEquals(other.gpsCoordinates, gpsCoordinates) &&
+        other.property_token == property_token &&
+        other.serpapi_property_details_link == serpapi_property_details_link &&
+        mapEquals(other.gps_coordinates, gps_coordinates) &&
         other.hotelClass == hotelClass &&
         other.thumbnail == thumbnail &&
-        other.overallRating == overallRating &&
+        other.overall_rating == overall_rating &&
         other.reviews == reviews &&
         other.price == price &&
-        other.extractedPrice == extractedPrice &&
+        other.extracted_price == extracted_price &&
         listEquals(other.amenities, amenities) &&
-        other.freeCancellation == freeCancellation;
+        other.free_cancellation == free_cancellation;
   }
 
   Hotel copyWith({
@@ -147,35 +148,35 @@ class Hotel {
     String? source,
     String? sourceIcon,
     String? link,
-    String? propertyToken,
-    String? serpapiPropertyDetailsLink,
-    Map<String, double>? gpsCoordinates,
+    String? property_token,
+    String? serpapi_property_details_link,
+    Map<String, double>? gps_coordinates,
     int? hotelClass,
     String? thumbnail,
-    double? overallRating,
+    double? overall_rating,
     int? reviews,
     String? price,
-    int? extractedPrice,
+    int? extracted_price,
     List<String>? amenities,
-    bool? freeCancellation,
+    bool? free_cancellation,
   }) {
     return Hotel(
       name: name ?? this.name,
       source: source ?? this.source,
       sourceIcon: sourceIcon ?? this.sourceIcon,
       link: link ?? this.link,
-      propertyToken: propertyToken ?? this.propertyToken,
-      serpapiPropertyDetailsLink:
-          serpapiPropertyDetailsLink ?? this.serpapiPropertyDetailsLink,
-      gpsCoordinates: gpsCoordinates ?? this.gpsCoordinates,
+      property_token: property_token ?? this.property_token,
+      serpapi_property_details_link:
+          serpapi_property_details_link ?? this.serpapi_property_details_link,
+      gps_coordinates: gps_coordinates ?? this.gps_coordinates,
       hotelClass: hotelClass ?? this.hotelClass,
       thumbnail: thumbnail ?? this.thumbnail,
-      overallRating: overallRating ?? this.overallRating,
+      overall_rating: overall_rating ?? this.overall_rating,
       reviews: reviews ?? this.reviews,
       price: price ?? this.price,
-      extractedPrice: extractedPrice ?? this.extractedPrice,
+      extracted_price: extracted_price ?? this.extracted_price,
       amenities: amenities ?? this.amenities,
-      freeCancellation: freeCancellation ?? this.freeCancellation,
+      free_cancellation: free_cancellation ?? this.free_cancellation,
     );
   }
 
@@ -188,23 +189,25 @@ class Hotel {
     result.addAll({'source': source});
     result.addAll({'sourceIcon': sourceIcon});
     result.addAll({'link': link});
-    result.addAll({'propertyToken': propertyToken});
-    result.addAll({'serpapiPropertyDetailsLink': serpapiPropertyDetailsLink});
-    result.addAll({'gpsCoordinates': gpsCoordinates});
+    result.addAll({'property_token': property_token});
+    result.addAll({
+      'serpapi_property_details_link': serpapi_property_details_link,
+    });
+    result.addAll({'gps_coordinates': gps_coordinates});
     result.addAll({'hotelClass': hotelClass});
     result.addAll({'thumbnail': thumbnail});
-    result.addAll({'overallRating': overallRating});
+    result.addAll({'overall_rating': overall_rating});
     result.addAll({'reviews': reviews});
     result.addAll({'price': price});
-    result.addAll({'extractedPrice': extractedPrice});
+    result.addAll({'extracted_price': extracted_price});
     result.addAll({'amenities': amenities});
-    result.addAll({'freeCancellation': freeCancellation});
+    result.addAll({'free_cancellation': free_cancellation});
 
     return result;
   }
 
   @override
   String toString() {
-    return 'SearchResultsHotel(name: $name, source: $source, sourceIcon: $sourceIcon, link: $link, propertyToken: $propertyToken, serpapiPropertyDetailsLink: $serpapiPropertyDetailsLink, gpsCoordinates: $gpsCoordinates, hotelClass: $hotelClass, thumbnail: $thumbnail, overallRating: $overallRating, reviews: $reviews, price: $price, extractedPrice: $extractedPrice, amenities: $amenities, freeCancellation: $freeCancellation)';
+    return 'Hotel(name: $name, source: $source, sourceIcon: $sourceIcon, link: $link, property_token: $property_token, serpapi_property_details_link: $serpapi_property_details_link, gps_coordinates: $gps_coordinates, hotelClass: $hotelClass, thumbnail: $thumbnail, overall_rating: $overall_rating, reviews: $reviews, price: $price, extracted_price: $extracted_price, amenities: $amenities, free_cancellation: $free_cancellation)';
   }
 }

@@ -63,6 +63,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Recommended hotels`
+  String get recomandedHotelsTitle {
+    return Intl.message(
+      'Recommended hotels',
+      name: 'recomandedHotelsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hotel added to favorites`
+  String get hotelAddedToFavorites {
+    return Intl.message(
+      'Hotel added to favorites',
+      name: 'hotelAddedToFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hotel removed from favorites`
+  String get hotelRemovedFromFavorites {
+    return Intl.message(
+      'Hotel removed from favorites',
+      name: 'hotelRemovedFromFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No hotels are found`
+  String get notHotelsAreFound {
+    return Intl.message(
+      'No hotels are found',
+      name: 'notHotelsAreFound',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
