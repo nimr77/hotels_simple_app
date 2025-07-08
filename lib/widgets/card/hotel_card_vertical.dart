@@ -25,7 +25,7 @@ class HotelCardVertical extends StatelessWidget {
             // Hotel image
             SizedBox(
               width: 120,
-              height: 120,
+              height: double.infinity,
               child: Hero(
                 tag: hotel.thumbnail,
                 child: ClipRRect(
@@ -35,7 +35,7 @@ class HotelCardVertical extends StatelessWidget {
                     imageUrl: hotel.thumbnail,
                     fit: BoxFit.cover,
                     width: 120,
-                    height: 120,
+                    height: double.infinity,
                   ),
                 ),
               ),
