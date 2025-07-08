@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class UserAvatarWidget extends StatelessWidget {
-  const UserAvatarWidget({super.key});
+  final double size;
+  const UserAvatarWidget({super.key, this.size = 50});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 50,
-      height: 50,
+      width: size,
+      height: size,
 
       child: Hero(
         tag: "user_avatar",
