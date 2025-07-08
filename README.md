@@ -64,16 +64,6 @@ ValueListenableBuilder(
   },
 )
 ```
-
----
-
-## How the App Works (to be documented)
-
-- Hotel search via SerpAPI
-- Offline storage and favorites
-- Language selection and localization
-- UI/UX patterns and navigation
-
 ---
 
 ## Why ValueNotifier + Provider + getIt?
