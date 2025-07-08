@@ -14,9 +14,53 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
     on<LanguageChanged>(_onLanguageChanged);
   }
 
+  /// Get the appropriate language for the app
+  Future<({Locale locale, Languages language})> getAppLanguage() async {
+    // Get saved language from shared preferences
+    final sharedStrLanguage = await _repo.getSharedPrefLanguage();
+
+    Locale initialLocale;
+    Languages initialLanguage;
+
+    if (sharedStrLanguage != null) {
+      initialLocale = Locale(sharedStrLanguage);
+      initialLanguage = Languages.fromLocale(initialLocale);
+    } else {
+      // Try to get language from device
+      final deviceLanguage = await _repo.getLanguageFromDevice();
+
+      if (deviceLanguage != null) {
+        final hasName = deviceLanguage.contains('_');
+
+        if (hasName) {
+          final split = deviceLanguage.split('_');
+          initialLocale = Locale(split[0], split[1]);
+        } else {
+          initialLocale = Locale(deviceLanguage);
+        }
+      } else {
+        initialLocale = const Locale('en', 'US');
+      }
+      initialLanguage = Languages.fromLocale(initialLocale);
+    }
+
+    // Check if it's supported, fallback to English if not
+    if (!LanguageInitial._supportedLocales.contains(initialLocale)) {
+      initialLocale = const Locale('en', 'US');
+      initialLanguage = Languages.english;
+    }
+
+    return (locale: initialLocale, language: initialLanguage);
+  }
+
   /// Initialize language settings
   Future<void> init() async {
-    add(LanguageInitialized());
+    // Get the appropriate language
+    final languageData = await getAppLanguage();
+
+    // Load the initial locale
+    await S.load(languageData.locale);
+    await initializeDateFormatting();
   }
 
   /// Change language
@@ -28,6 +72,12 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
     LanguageChanged event,
     Emitter<LanguageState> emit,
   ) async {
+    // Check if the selected language is the same as current
+    if (state.currentLanguage == event.language) {
+      // Same language, no need to do anything
+      return;
+    }
+
     emit(
       LanguageLoading(
         currentLocale: state.currentLocale,
@@ -71,71 +121,8 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
     LanguageInitialized event,
     Emitter<LanguageState> emit,
   ) async {
-    emit(
-      LanguageLoading(
-        currentLocale: state.currentLocale,
-        currentLanguage: state.currentLanguage,
-        supportedLocales: state.supportedLocales,
-      ),
-    );
-
-    try {
-      // Get saved language from shared preferences
-      final sharedStrLanguage = await _repo.getSharedPrefLanguage();
-
-      Locale newLocale;
-      Languages newLanguage;
-
-      if (sharedStrLanguage != null) {
-        newLocale = Locale(sharedStrLanguage);
-        newLanguage = Languages.fromLocale(newLocale);
-      } else {
-        // Try to get language from device
-        final deviceLanguage = await _repo.getLanguageFromDevice();
-
-        if (deviceLanguage != null) {
-          final hasName = deviceLanguage.contains('_');
-
-          if (hasName) {
-            final split = deviceLanguage.split('_');
-            newLocale = Locale(split[0], split[1]);
-          } else {
-            newLocale = Locale(deviceLanguage);
-          }
-        } else {
-          newLocale = const Locale('en', 'US');
-        }
-
-        newLanguage = Languages.fromLocale(newLocale);
-      }
-
-      // Check if it's supported
-      if (!state.supportedLocales.contains(newLocale)) {
-        newLocale = const Locale('en', 'US');
-        newLanguage = Languages.english;
-      }
-
-      // Load the language
-      await S.load(newLocale);
-      await initializeDateFormatting();
-
-      emit(
-        LanguageLoaded(
-          currentLocale: newLocale,
-          currentLanguage: newLanguage,
-          supportedLocales: state.supportedLocales,
-        ),
-      );
-    } catch (e) {
-      emit(
-        LanguageError(
-          currentLocale: state.currentLocale,
-          currentLanguage: state.currentLanguage,
-          supportedLocales: state.supportedLocales,
-          message: e.toString(),
-        ),
-      );
-    }
+    // Language is already loaded in init(), just emit current state
+    // This method is kept for compatibility but doesn't need to do anything
   }
 }
 
