@@ -1,4 +1,5 @@
 {
+  "appName": "Hotel App",
   "searchBarTitle": "Search for world's hotels",
   "recomandedHotelsTitle": "Recommended hotels",
   "hotelAddedToFavorites": "Hotel added to favorites",
@@ -6,5 +7,6 @@
   "notHotelsAreFound": "No hotels are found",
   "favorites": "Favorites",
   "profile": "Profile",
-  "home": "Home"
+  "home": "Home",
+  "errorLoadingData": "Error loading data"
 }

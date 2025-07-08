@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotel_app/logic/language/bloc.dart';
+import 'package:hotel_app/generated/l10n.dart';
+import 'package:hotel_app/logic/language/provider.dart';
 import 'package:hotel_app/routes/router.dart';
 import 'package:hotel_app/setup.dart';
 import 'package:hotel_app/style/common.dart';
 import 'package:hotel_app/style/font_size.dart';
 import 'package:hotel_app/style/themes.dart';
+import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 
 class AppMainWidget extends StatelessWidget {
@@ -24,39 +25,45 @@ class AppMainWidget extends StatelessWidget {
           currentFocus.focusedChild?.unfocus();
         }
       },
-      child: BlocProvider(
-        create: (_) => getIt<LanguageBloc>(),
-        child: BlocBuilder<LanguageBloc, LanguageState>(
-          builder: (context, state) {
-            return ToastificationWrapper(
-              child: MaterialApp.router(
-                title: 'Hotel App',
-                locale: state.currentLocale,
-                themeAnimationCurve: Curves.easeInOut,
-                debugShowCheckedModeBanner: false,
-                builder: (context, child) {
-                  return MediaQuery(
-                    data: MediaQuery.of(context).copyWith(
-                      textScaler: TextScaler.linear(getTheTextFactor(context)),
-                    ),
-                    child: child!,
-                  );
-                },
-                localizationsDelegates: const [
-                  DefaultMaterialLocalizations.delegate,
-                  DefaultWidgetsLocalizations.delegate,
-                  // S.delegate,
-                ],
-                key: ValueKey("HotelApp - ${state.currentLocale.languageCode}"),
-                theme: buildLightTheme(),
-                darkTheme: buildDarkTheme(),
-                themeMode: ThemeMode.system,
-                // darkTheme: buildDarkTheme(),
-                routerConfig: mainRouter,
-              ),
-            );
-          },
-        ),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => getIt<LanguageProvider>()),
+
+          // ChangeNotifierProvider(create: (_) => getIt<DeepLinkingProvider>())
+        ],
+        builder: (context, _) {
+          final currentLanguage = context
+              .watch<LanguageProvider>()
+              .currentLocal;
+
+          return ToastificationWrapper(
+            child: MaterialApp.router(
+              title: S.current.appName,
+              locale: currentLanguage,
+              themeAnimationCurve: Curves.easeInOut,
+              debugShowCheckedModeBanner: false,
+              builder: (context, child) {
+                return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(
+                    textScaler: TextScaler.linear(getTheTextFactor(context)),
+                  ),
+                  child: child!,
+                );
+              },
+              localizationsDelegates: const [
+                DefaultMaterialLocalizations.delegate,
+                DefaultWidgetsLocalizations.delegate,
+                // S.delegate,
+              ],
+              key: ValueKey("HotelsApp - ${currentLanguage.languageCode}"),
+              theme: buildLightTheme(),
+              darkTheme: buildDarkTheme(),
+              themeMode: ThemeMode.system,
+              // darkTheme: buildDarkTheme(),
+              routerConfig: mainRouter,
+            ),
+          );
+        },
       ),
     );
   }

@@ -54,6 +54,11 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Hotel App`
+  String get appName {
+    return Intl.message('Hotel App', name: 'appName', desc: '', args: []);
+  }
+
   /// `Search for world's hotels`
   String get searchBarTitle {
     return Intl.message(
@@ -117,6 +122,16 @@ class S {
   /// `Home`
   String get home {
     return Intl.message('Home', name: 'home', desc: '', args: []);
+  }
+
+  /// `Error loading data`
+  String get errorLoadingData {
+    return Intl.message(
+      'Error loading data',
+      name: 'errorLoadingData',
+      desc: '',
+      args: [],
+    );
   }
 }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hotel_app/logic/hotel_search/models/hotel_search_response.dart';
 import 'package:hotel_app/logic/hotel_search/models/search_query.dart';
 import 'package:hotel_app/models/env.dart';
@@ -116,13 +117,20 @@ class HotelSearchRepository {
   }
 
   Future<HotelSearchResponse> searchHotels(SearchQuery query) async {
-    final params = query.toJson();
-    params['api_key'] = Env.apiKey;
-    final response = await dio.get(
-      HotelApiEndpoint.searchHotels.path,
-      queryParameters: params,
-    );
-
-    return HotelSearchResponse.fromMap(response.data);
+    try {
+      final params = query.toJson();
+      params['api_key'] = Env.apiKey;
+      final response = await dio
+          .get(HotelApiEndpoint.searchHotels.path, queryParameters: params)
+          .timeout(4.seconds);
+      return HotelSearchResponse.fromMap(response.data);
+    } catch (e) {
+      // get data from offline
+      final offlineHotels = await getOfflineHotels();
+      if (offlineHotels != null && offlineHotels.hotels.isNotEmpty) {
+        return offlineHotels;
+      }
+      rethrow;
+    }
   }
 }

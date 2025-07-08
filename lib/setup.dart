@@ -1,52 +1,33 @@
 import 'package:get_it/get_it.dart';
-import 'package:hotel_app/logic/hotel_search/bloc.dart';
-import 'package:hotel_app/logic/hotel_search/models/search_query.dart';
-import 'package:hotel_app/logic/hotel_search/repo.dart';
-import 'package:hotel_app/logic/language/bloc.dart';
+import 'package:hotel_app/logic/hotel_search/provider.dart';
+import 'package:hotel_app/logic/language/provider.dart';
 
 final GetIt getIt = GetIt.instance;
 
 class Setup {
   static Future<void> init() async {
-    await initBlocs();
+    await initServices();
     await initFetchingData();
-  }
-
-  static Future<void> initBlocs() async {
-    // Register HotelSearchRepository as a singleton
-    getIt.registerLazySingleton<HotelSearchRepository>(
-      () => HotelSearchRepository(),
-    );
-
-    // Register HotelSearchBloc as a singleton
-    getIt.registerLazySingleton<HotelSearchBloc>(() => HotelSearchBloc());
-
-    // Register LanguageBloc as a singleton
-    getIt.registerLazySingleton<LanguageBloc>(() => LanguageBloc());
   }
 
   static Future<void> initFetchingData() async {
     // Get the repository and bloc instances
-    final repository = getIt<HotelSearchRepository>();
-    final hotelSearchBloc = getIt<HotelSearchBloc>();
+    final hotelSearchProvider = getIt<HotelsSearchProvider>();
 
     // Initialize language bloc
-    final languageBloc = getIt<LanguageBloc>();
-    await languageBloc.init();
+    final languageProvider = getIt<LanguageProvider>();
+    await Future.wait([languageProvider.init(), hotelSearchProvider.init()]);
 
-    // Try to get the last saved search query
-    final lastSearchQuery = await repository.getLastSearchQuery();
+    hotelSearchProvider.loadHotels();
+  }
 
-    SearchQuery searchQuery;
+  static Future<void> initServices() async {
+    // Register HotelSearchBloc as a singleton
+    getIt.registerLazySingleton<HotelsSearchProvider>(
+      () => HotelsSearchProvider(),
+    );
 
-    if (lastSearchQuery != null) {
-      // Use the last saved search query
-      searchQuery = lastSearchQuery;
-    } else {
-      // Use the default search query from repository
-      searchQuery = repository.getDefaultSearchQuery();
-    }
-
-    hotelSearchBloc.add(HotelSearchRequested(searchQuery));
+    // Register LanguageBloc as a singleton
+    getIt.registerLazySingleton<LanguageProvider>(() => LanguageProvider());
   }
 }
