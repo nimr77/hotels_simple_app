@@ -23,13 +23,14 @@ class HotelCardVertical extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Hotel image
-            ClipRRect(
-              borderRadius: BorderRadius.horizontal(left: outterCardRadius),
-              child: SizedBox(
-                width: 120,
-                height: 120,
-                child: Hero(
-                  tag: hotel.thumbnail,
+            SizedBox(
+              width: 120,
+              height: 120,
+              child: Hero(
+                tag: hotel.thumbnail,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.horizontal(left: outterCardRadius),
+
                   child: CachedNetworkImage(
                     imageUrl: hotel.thumbnail,
                     fit: BoxFit.cover,
