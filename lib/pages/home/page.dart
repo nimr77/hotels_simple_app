@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       onRefresh: () => provider.loadHotels(),
       child: ValueListenableBuilder(
         valueListenable: provider.loadingState,
