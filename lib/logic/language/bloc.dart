@@ -9,7 +9,7 @@ import 'package:intl/date_symbol_data_local.dart';
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
   final LanugageRepo _repo = LanugageRepo();
 
-  LanguageBloc() : super(const LanguageInitial()) {
+  LanguageBloc() : super(LanguageInitial()) {
     on<LanguageInitialized>(_onLanguageInitialized);
     on<LanguageChanged>(_onLanguageChanged);
   }
@@ -159,11 +159,15 @@ class LanguageError extends LanguageState {
 abstract class LanguageEvent {}
 
 class LanguageInitial extends LanguageState {
-  const LanguageInitial()
+  static final List<Locale> _supportedLocales = [
+    ...Languages.values.map((e) => Locale(e.code)),
+  ];
+
+  LanguageInitial()
     : super(
         currentLocale: const Locale('en', 'US'),
         currentLanguage: Languages.english,
-        supportedLocales: Languages.values.map((e) => Locale(e.code)).toList(),
+        supportedLocales: _supportedLocales,
       );
 }
 
