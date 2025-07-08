@@ -43,6 +43,21 @@ class HotelSearchRepository {
     }
   }
 
+  /// Get default search query
+  SearchQuery getDefaultSearchQuery() {
+    return SearchQuery(
+      engine: 'google_hotels',
+      q: 'Bali Resorts', // Default search term
+      gl: 'us',
+      hl: 'en',
+      currency: 'USD',
+      checkInDate: '2025-11-24',
+      checkOutDate: '2025-11-25',
+      adults: 2,
+      children: 0,
+    );
+  }
+
   /// Get last search query from SharedPreferences
   Future<SearchQuery?> getLastSearchQuery() async {
     try {

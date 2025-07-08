@@ -54,6 +54,11 @@ class HotelSearchBloc extends Bloc<HotelSearchEvent, HotelSearchState> {
   }
 
   bool get isLoading => _isLoading;
+
+  /// Get default search query from repository
+  SearchQuery getDefaultSearchQuery() {
+    return repository.getDefaultSearchQuery();
+  }
 }
 
 class HotelSearchError extends HotelSearchState {

@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hotel_app/logic/hotel_search/bloc.dart';
 import 'package:hotel_app/logic/hotel_search/models/search_query.dart';
 import 'package:hotel_app/logic/hotel_search/repo.dart';
+import 'package:hotel_app/logic/language/bloc.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -19,12 +20,19 @@ class Setup {
 
     // Register HotelSearchBloc as a singleton
     getIt.registerLazySingleton<HotelSearchBloc>(() => HotelSearchBloc());
+
+    // Register LanguageBloc as a singleton
+    getIt.registerLazySingleton<LanguageBloc>(() => LanguageBloc());
   }
 
   static Future<void> initFetchingData() async {
     // Get the repository and bloc instances
     final repository = getIt<HotelSearchRepository>();
     final hotelSearchBloc = getIt<HotelSearchBloc>();
+
+    // Initialize language bloc
+    final languageBloc = getIt<LanguageBloc>();
+    await languageBloc.init();
 
     // Try to get the last saved search query
     final lastSearchQuery = await repository.getLastSearchQuery();
@@ -35,18 +43,8 @@ class Setup {
       // Use the last saved search query
       searchQuery = lastSearchQuery;
     } else {
-      // Create a default search query if no saved query exists
-      searchQuery = SearchQuery(
-        engine: 'google_hotels',
-        q: 'Bali Resorts', // Default search term
-        gl: 'us',
-        hl: 'en',
-        currency: 'USD',
-        checkInDate: '2025-11-24',
-        checkOutDate: '2025-11-25',
-        adults: 2,
-        children: 0,
-      );
+      // Use the default search query from repository
+      searchQuery = repository.getDefaultSearchQuery();
     }
 
     // Trigger initial data fetch with the search query
