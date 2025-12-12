@@ -143,7 +143,7 @@ class CommonThemeBuilders {
 
   static Color get scaffoldBackgroundColor => backgroundColor;
 
-  static get searchBarDecoration => BoxDecoration(
+  static BoxDecoration get searchBarDecoration => BoxDecoration(
     color: scaffoldBackgroundColor,
     borderRadius: const BorderRadius.all(Radius.circular(38)),
     boxShadow: <BoxShadow>[
@@ -493,11 +493,12 @@ class CommonThemeBuilders {
     );
   }
 
-  static progressIndicatorThemeData() => ProgressIndicatorThemeData(
-    borderRadius: BorderRadius.circular(10),
-    color: primaryColor,
-    linearTrackColor: isLightMode ? Colors.grey[300] : Colors.white,
-  );
+  static ProgressIndicatorThemeData progressIndicatorThemeData() =>
+      ProgressIndicatorThemeData(
+        borderRadius: BorderRadius.circular(10),
+        color: primaryColor,
+        linearTrackColor: isLightMode ? Colors.grey[300] : Colors.white,
+      );
 
   static TextButtonThemeData textButtonThemeData(ColorScheme colorScheme) {
     return TextButtonThemeData(

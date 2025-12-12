@@ -15,7 +15,7 @@ class MyThemeModeProvider extends ChangeNotifier {
     updateThemeMode(mode);
   }
 
-  loadThemeModeFromSp() async {
+  Future<void> loadThemeModeFromSp() async {
     final sp = await SharedPreferences.getInstance();
     final themeModeIndex = sp.getInt(_spKeyThemeMode);
     if (themeModeIndex != null) {
@@ -24,7 +24,7 @@ class MyThemeModeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  saveThemeModeToSp() async {
+  Future<void> saveThemeModeToSp() async {
     final sp = await SharedPreferences.getInstance();
     sp.setInt(_spKeyThemeMode, _themeMode.index);
   }
@@ -42,7 +42,7 @@ class MyThemeModeProvider extends ChangeNotifier {
     }
   }
 
-  updateThemeMode(ThemeMode mode) {
+  void updateThemeMode(ThemeMode mode) {
     _themeMode = mode;
     saveThemeModeToSp();
     notifyListeners();

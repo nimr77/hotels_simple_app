@@ -24,7 +24,7 @@ class MyScrollController extends ChangeNotifier {
   ///
   /// This method should be called after the widget is initialized to start
   /// tracking the scroll offset.
-  initOffset() async {
+  Future<void> initOffset() async {
     scrollController.addListener(() {
       if (scrollController.hasClients) {
         currentScrollController = scrollController;

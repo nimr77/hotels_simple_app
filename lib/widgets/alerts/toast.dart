@@ -28,7 +28,7 @@ enum ToastType {
     ToastType.warning: ToastificationType.warning,
   }[this]!;
 
-  show({Widget? title, Widget? description}) {
+  ToastificationItem show({Widget? title, Widget? description}) {
     return toastification.show(
       alignment: Alignment.topCenter,
       autoCloseDuration: const Duration(seconds: 6),
@@ -39,7 +39,7 @@ enum ToastType {
     );
   }
 
-  showFromText({required String text, String? description}) {
+  ToastificationItem showFromText({required String text, String? description}) {
     return toastification.show(
       alignment: Alignment.topCenter,
       autoCloseDuration: const Duration(seconds: 3),

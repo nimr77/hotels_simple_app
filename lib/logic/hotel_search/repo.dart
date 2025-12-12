@@ -5,6 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:hotel_app/logic/hotel_search/models/hotel_search_response.dart';
 import 'package:hotel_app/logic/hotel_search/models/search_query.dart';
 import 'package:hotel_app/models/env.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum HotelApiEndpoint {
@@ -20,7 +21,15 @@ class HotelSearchRepository {
   final Dio dio;
 
   HotelSearchRepository({Dio? dio})
-    : dio = dio ?? Dio(BaseOptions(baseUrl: Env.baseUrl));
+    : dio =
+          dio ??
+          Dio(
+            BaseOptions(
+              baseUrl: Env.baseUrl,
+              connectTimeout: 10.seconds,
+              receiveTimeout: 10.seconds,
+            ),
+          );
 
   /// Clear offline hotels from SharedPreferences
   Future<bool> clearOfflineHotels() async {
@@ -52,8 +61,12 @@ class HotelSearchRepository {
       gl: 'us',
       hl: 'en',
       currency: 'USD',
-      checkInDate: '2025-11-24',
-      checkOutDate: '2025-11-25',
+      checkInDate: DateFormat(
+        'yyyy-MM-dd',
+      ).format(DateTime.now().add(const Duration(days: 1))),
+      checkOutDate: DateFormat(
+        'yyyy-MM-dd',
+      ).format(DateTime.now().add(const Duration(days: 2))),
       adults: 2,
       children: 0,
     );
@@ -120,9 +133,10 @@ class HotelSearchRepository {
     try {
       final params = query.toJson();
       params['api_key'] = Env.apiKey;
-      final response = await dio
-          .get(HotelApiEndpoint.searchHotels.path, queryParameters: params)
-          .timeout(4.seconds);
+      final response = await dio.get(
+        HotelApiEndpoint.searchHotels.path,
+        queryParameters: params,
+      );
       return HotelSearchResponse.fromMap(response.data);
     } catch (e) {
       // get data from offline

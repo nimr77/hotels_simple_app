@@ -8,9 +8,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hotel_app/pages/layout.dart';
 import 'package:hotel_app/routes/routes.dart';
 import 'package:hotel_app/routes/scroll_home.dart';
+import 'package:hotel_app/routes/swipe_page.dart';
 import 'package:hotel_app/routes/util.dart';
 import 'package:provider/provider.dart';
-import 'package:swipeable_page_route/swipeable_page_route.dart';
 
 // Global navigation keys
 final homeNavigationKey = GlobalKey<NavigatorState>();
@@ -154,14 +154,14 @@ GoRouter buildRouter() {
 }
 
 // Function to change the initial route
-changeInitRoute(String route) async {
+Future<void> changeInitRoute(String route) async {
   await Future.delayed(const Duration(milliseconds: 300));
   if (locationRouter == route) return;
   mainRouter.push(route);
 }
 
 // Function to navigate to the required page after authentication
-navigateToRequiredPage() {
+void navigateToRequiredPage() {
   // if (_regusitedRoute == Routes.profile.route) {
   //   mainRouter.go(Routes.home.route);
   //   _regusitedRoute = null;
@@ -190,7 +190,7 @@ navigateToRequiredPage() {
 }
 
 // Function to reset the last redirect
-resetLastRedirect() {
+void resetLastRedirect() {
   _regusitedRoute = null;
 }
 

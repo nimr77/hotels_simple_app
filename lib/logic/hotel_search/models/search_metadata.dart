@@ -7,7 +7,6 @@ class SearchMetadata {
   final String googleHotelsUrl;
   final String rawHtmlFile;
   final String prettifyHtmlFile;
-  final double totalTimeTaken;
 
   SearchMetadata({
     required this.id,
@@ -18,7 +17,6 @@ class SearchMetadata {
     required this.googleHotelsUrl,
     required this.rawHtmlFile,
     required this.prettifyHtmlFile,
-    required this.totalTimeTaken,
   });
 
   factory SearchMetadata.fromMap(Map<String, dynamic> map) {
@@ -31,7 +29,6 @@ class SearchMetadata {
       googleHotelsUrl: map['google_hotels_url'] ?? '',
       rawHtmlFile: map['raw_html_file'] ?? '',
       prettifyHtmlFile: map['prettify_html_file'] ?? '',
-      totalTimeTaken: map['total_time_taken']?.toDouble() ?? 0.0,
     );
   }
 
@@ -45,7 +42,6 @@ class SearchMetadata {
       'google_hotels_url': googleHotelsUrl,
       'raw_html_file': rawHtmlFile,
       'prettify_html_file': prettifyHtmlFile,
-      'total_time_taken': totalTimeTaken,
     };
   }
 }
