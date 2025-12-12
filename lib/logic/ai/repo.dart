@@ -10,6 +10,8 @@ class AIProvider {
     _genUiManager = GenUiManager(catalog: CoreCatalogItems.asCatalog());
   }
 
+  GenUiHost get host => _genUiConversation.host;
+
   void dispose() {
     _genUiConversation.dispose();
     _genUiManager.dispose();

@@ -54,7 +54,7 @@ class Hotel {
       reviews: map['reviews']?.toInt() ?? 0,
       price: map['price'] ?? '',
       extracted_price: map['extracted_price']?.toInt() ?? 0,
-      amenities: List<String>.from(map['amenities']),
+      amenities: List<String>.from(map['amenities'] ?? []),
       free_cancellation: map['free_cancellation'] ?? false,
     );
   }
