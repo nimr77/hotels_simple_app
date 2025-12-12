@@ -10,7 +10,16 @@ class AIProvider {
     _genUiManager = GenUiManager(catalog: CoreCatalogItems.asCatalog());
   }
 
-  void generate() {
+  void dispose() {
+    _genUiConversation.dispose();
+    _genUiManager.dispose();
+  }
+
+  void generate({
+    required void Function(SurfaceAdded surface) onSurfaceAdded,
+    required void Function(ContentGeneratorError error) onError,
+    required void Function(SurfaceUpdated) onSurfaceUpdated,
+  }) {
     // generate the description for the hotel
     final contentGenerator = FirebaseAiContentGenerator(
       catalog: CoreCatalogItems.asCatalog(),
@@ -31,6 +40,12 @@ class AIProvider {
             You will make one Widget that has the description of the hotel. bold for some parts. and good design
         ''',
     );
-    _genUiConversation = GenUiConversation();
+    _genUiConversation = GenUiConversation(
+      contentGenerator: contentGenerator,
+      genUiManager: _genUiManager,
+      onSurfaceAdded: onSurfaceAdded,
+      onError: onError,
+      onSurfaceUpdated: onSurfaceUpdated,
+    );
   }
 }
